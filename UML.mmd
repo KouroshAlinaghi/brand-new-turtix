@@ -1,0 +1,42 @@
+classDiagram
+    Map .. Object
+    Map : - objects[]
+    Object : + void handle_collision()
+    Object : # int x
+    Object : # int y
+    Object : # int vx
+    Object : # int vy
+    Object : # int ay
+    Object : # sprite
+    Object <-- StableObjects
+    Object <-- MovingObjects
+    MovingObjects <-- Playable
+    MovingObjects <-- NPC
+    MovingObjects : + void handle_edge()
+    NPC <-- Turtlack
+    StableObjects <-- Wall
+    StableObjects <-- Gruond
+    NPC <-- Enemy
+    Enemy <-- Shielded
+    Enemy <-- Dummy
+    Display <-- Menu
+    Display <-- Gameplay
+    Display <-- Settings
+    Display <-- Credits
+    Display <-- PauseMenu
+    Display <-- LoadingScreen
+    Display : + void render()
+    Level .. Map
+    Level : + void start()
+    Level : + void terminate()
+    Level : - score
+    Object : + void draw()
+    Map : + void notify_collosion()
+    Map : + void notify_fall()
+    MovingObjects : + void handle_fall()
+    Level : - map
+    Gameplay .. Map
+    Gameplay : - map
+    Universe .. Level
+    Universe: - levels[]
+    Universe: - settings
