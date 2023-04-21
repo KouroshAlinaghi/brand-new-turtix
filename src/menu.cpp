@@ -22,49 +22,50 @@ Menu::Menu() : Display() {
     items.front().select();
 }
 
-void Menu::handle_event(sf::RenderWindow& window, Universe* universe) {
-    sf::Event e;
-    while (window.pollEvent(e)) {
-        if (e.type == sf::Event::Closed)
-            window.close();
-
-        if (e.type == sf::Event::KeyPressed) {
-            if (e.key.code == sf::Keyboard::Enter) {
-                for (auto& item : items) {
-                    if (item.is_selected()) {
-                        if (item.get_action() == MAIN_MENU) {
-                            window.close();
+void Menu::handle_event(EventQueue queue, Universe* universe) {
+    Display::handle_event(queue, universe);
+    for (auto event : queue) {
+        if (event.first != EVENT_TYPE::KEY_PRESSED) continue;
+        if (event.second == sf::Keyboard::Enter) {
+            for (auto& item : items) {
+                if (item.is_selected()) {
+                    switch (item.get_action()) {
+                        case ACTION::MAIN_MENU:
+                            universe->close_window();
                             exit(0);
-                        }
-                        universe->set_current_display(item.get_action());
+                            break;
+                        default:
+                            universe->set_current_display(item.get_action());
+                            break;
                     }
                 }
             }
-
-            if (e.key.code == sf::Keyboard::Up) {
-                for (int i = 0; i < items.size(); i++) {
-                    if (items[i].is_selected()) {
-                        items[i].unselect();
-                        if (i == 0)
-                            items.back().select();
-                        else
-                            items[i - 1].select();
-                        break;
-                    }
+        }
+        if (event.second == sf::Keyboard::Up) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items[i].is_selected()) {
+                    items[i].unselect();
+                    if (i == 0)
+                        items.back().select();
+                    else
+                        items[i - 1].select();
+                    break;
                 }
-            } else if (e.key.code == sf::Keyboard::Down) {
-                for (int i = 0; i < items.size(); i++) {
-                    if (items[i].is_selected()) {
-                        items[i].unselect();
-                        if (i == items.size() - 1)
-                            items.front().select();
-                        else
-                            items[i + 1].select();
-                        break;
-                    }
+            }
+        }
+        if (event.second == sf::Keyboard::Down) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items[i].is_selected()) {
+                    items[i].unselect();
+                    if (i == items.size() - 1)
+                        items.front().select();
+                    else
+                        items[i + 1].select();
+                    break;
                 }
             }
         }
     }
 }
+
 void Menu::tick() {}

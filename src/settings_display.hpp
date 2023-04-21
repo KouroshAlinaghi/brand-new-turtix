@@ -11,7 +11,7 @@ class SettingsDisplay : public Display {
 public:
     SettingsDisplay();
     void render(sf::RenderWindow& window);
-    void handle_event(sf::RenderWindow& window, Universe* universe);
+    void handle_event(EventQueue queue, Universe* universe);
     void tick();
 };
 

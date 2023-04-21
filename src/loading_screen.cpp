@@ -5,5 +5,5 @@
 
 LoadingScreen::LoadingScreen() : Display() {}
 void LoadingScreen::render(sf::RenderWindow& window) {}
-void LoadingScreen::handle_event(sf::RenderWindow& window, Universe* universe) {}
+void LoadingScreen::handle_event(EventQueue queue, Universe* universe) {}
 void LoadingScreen::tick() {}

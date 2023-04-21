@@ -10,6 +10,6 @@ void Gameplay::render(sf::RenderWindow& window) {
 
     window.display();
 }
-void Gameplay::handle_event(sf::RenderWindow& window, Universe* universe) {}
+void Gameplay::handle_event(EventQueue queue, Universe* universe) {}
 void Gameplay::tick() {}
 Gameplay::Gameplay() : Display() {}

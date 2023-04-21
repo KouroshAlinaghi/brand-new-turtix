@@ -27,7 +27,6 @@ public:
             ACTION action,
             sf::Font* font_
         );
-    void handle_event(sf::RenderWindow& window);
     void render(sf::RenderWindow& window);
     void tick();
     void select();

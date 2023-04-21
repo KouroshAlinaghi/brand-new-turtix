@@ -5,5 +5,5 @@
 
 PauseMenu::PauseMenu() : Display() {}
 void PauseMenu::render(sf::RenderWindow& window) {}
-void PauseMenu::handle_event(sf::RenderWindow& window, Universe* universe) {}
+void PauseMenu::handle_event(EventQueue queue, Universe* universe) {}
 void PauseMenu::tick() {}

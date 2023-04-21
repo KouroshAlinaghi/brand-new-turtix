@@ -29,7 +29,6 @@ ACTION MenuItem::get_action() {
 }
 
 void MenuItem::tick() {}
-void MenuItem::handle_event(sf::RenderWindow& window) {}
 
 MenuItem::MenuItem(
         std::string text_,

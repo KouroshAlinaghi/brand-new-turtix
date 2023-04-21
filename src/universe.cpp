@@ -8,13 +8,21 @@
 
 using namespace std;
 
-void Universe::start() {
-    sf::RenderWindow window(sf::VideoMode(1080, 1920), "Turtix!");
+Universe::Universe() {
+    window.create(sf::VideoMode(1080, 1920), "Turtix!");
     initialize_displays();
     set_current_display(ACTION::MAIN_MENU);
+}
 
+void Universe::close_window() {
+    window.close();
+}
+
+void Universe::start() {
     while (window.isOpen()) {
-        current_display->handle_event(window, this);
+        queue = generate_queue(window);
+        current_display->handle_event(queue, this);
+        empty_queue(queue);
         current_display->tick();
         current_display->render(window);
     }
