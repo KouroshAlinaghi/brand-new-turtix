@@ -1,21 +1,22 @@
 classDiagram
-    Map .. Object
-    Map : - objects[]
+    GameMap .. Object
+    GameMap : - objects[]
     Object : + void handle_collision()
     Object : # int x
     Object : # int y
-    Object : # int vx
-    Object : # int vy
-    Object : # int ay
+    Object <-- StableObject
+    Object <-- MovingObject
     Object : # sprite
-    Object <-- StableObjects
-    Object <-- MovingObjects
-    MovingObjects <-- Playable
-    MovingObjects <-- NPC
-    MovingObjects : + void handle_edge()
+    MovingObject <-- Playable
+    MovingObject <-- NPC
+    MovingObject : # double vx
+    MovingObject : # double vy
+    MovingObject : # double ay
+    MovingObject : + void handle_edge()
     NPC <-- Turtlack
-    StableObjects <-- Wall
-    StableObjects <-- Gruond
+    StableObject <-- Wall
+    StableObject <-- Ground
+    StableObject <-- TurningBlock
     NPC <-- Enemy
     Enemy <-- Shielded
     Enemy <-- Dummy
@@ -26,17 +27,33 @@ classDiagram
     Display <-- PauseMenu
     Display <-- LoadingScreen
     Display : + void render()
-    Level .. Map
+    Level .. GameMap
     Level : + void start()
     Level : + void terminate()
     Level : - score
     Object : + void draw()
-    Map : + void notify_collosion()
-    Map : + void notify_fall()
-    MovingObjects : + void handle_fall()
-    Level : - map
-    Gameplay .. Map
-    Gameplay : - map
+    GameMap : + void notify_collosion()
+    GameMap : + void notify_fall()
+    MovingObject : + void handle_fall()
+    Level : - map*
+    Gameplay .. GameMap
+    Gameplay : - current_map*
     Universe .. Level
     Universe: - levels[]
     Universe: - settings
+    Universe .. Display
+    Universe: - displays[]
+    Display: + void tick()
+    Display: + void handle_event(window, universe*)
+    Display .. MenuItem
+    Display: - items[]
+    Universe: - current_display
+    StableObject <-- Star
+    StableObject <-- Diamond
+    NPC <-- MovableBlock
+    StableObject <-- Ladder
+    StableObject <-- Rope
+    Display <-- GameOver
+    GameOver : - STATUS
+    StableObject <-- Trap
+    Display <-- LevelSelect
