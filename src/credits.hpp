@@ -10,7 +10,6 @@
 
 class Credits : public Display {
 private:
-    std::vector<MenuItem> items;
     sf::Text text;
 public:
     Credits();

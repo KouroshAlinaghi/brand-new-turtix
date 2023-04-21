@@ -15,6 +15,7 @@ public:
     void notify_collision();
     void notify_fall();
     void notify_edge();
+    std::vector<Object> get_objects();
 };
 
 #endif

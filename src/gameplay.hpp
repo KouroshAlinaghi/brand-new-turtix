@@ -9,7 +9,7 @@
 
 class Gameplay : public Display {
 private:
-    Level level;
+    Level* level;
 public:
     void render(sf::RenderWindow& window);
     void handle_event(sf::RenderWindow& window, Universe* universe);

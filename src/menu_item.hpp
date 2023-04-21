@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 
-#include "display.hpp"
 #include "actions.hpp"
 
 class MenuItem {

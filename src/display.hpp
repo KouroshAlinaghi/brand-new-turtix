@@ -3,10 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "menu_item.hpp"
+
 class Universe;
 
 class Display {
 protected:
+    std::vector<MenuItem> items;
     sf::Font font;
 public:
     Display();

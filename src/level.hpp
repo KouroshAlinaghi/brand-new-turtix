@@ -5,15 +5,13 @@
 
 class Level {
 private:
-    GameMap level_map;
+    GameMap game_map;
     int score;
 public:
-    Level() {
-        score = 0;
-        level_map = GameMap();
-    }
+    Level();
     void start();
     void terminate();
+    GameMap get_map();
 };
 
 #endif

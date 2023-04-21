@@ -9,3 +9,6 @@ void GameMap::remove_object(Object object) {}
 void GameMap::notify_collision() {}
 void GameMap::notify_fall() {}
 void GameMap::notify_edge() {}
+std::vector<Object> GameMap::get_objects() {
+    return objects;
+}

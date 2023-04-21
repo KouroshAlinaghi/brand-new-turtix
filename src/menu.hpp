@@ -10,8 +10,6 @@
 #include "menu_item.hpp"
 
 class Menu : public Display {
-private:
-    std::vector<MenuItem> items;
 public:
     void handle_event(sf::RenderWindow& window, Universe* universe);
     void render(sf::RenderWindow& window);

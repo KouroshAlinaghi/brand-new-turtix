@@ -8,8 +8,6 @@
 #include "universe.hpp"
 
 class SettingsDisplay : public Display {
-private:
-    std::vector<MenuItem> items;
 public:
     SettingsDisplay();
     void render(sf::RenderWindow& window);
