@@ -1,3 +1,3 @@
 #include "moving_object.hpp"
 
-class PC : public MovingObjects {};
+class PC : public MovingObject {};

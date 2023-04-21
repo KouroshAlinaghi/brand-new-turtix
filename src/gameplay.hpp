@@ -9,6 +9,7 @@
 
 class Gameplay : public Display {
 private:
+    sf::View view;
     Level* level;
 public:
     void render(sf::RenderWindow& window);

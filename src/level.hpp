@@ -5,13 +5,13 @@
 
 class Level {
 private:
-    GameMap game_map;
+    GameMap* game_map;
     int score;
 public:
     Level();
     void start();
     void terminate();
-    GameMap get_map();
+    GameMap* get_map();
 };
 
 #endif

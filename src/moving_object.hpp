@@ -1,10 +1,16 @@
+#ifndef MOVING_OBJECT_HPP
+#define MOVING_OBJECT_HPP
+
 #include "object.hpp"
 
-class MovingObjects : public Object {
-protected:
-    double vx, vy;
-    double ay;
+class MovingObject : public Object {
 public:
+    MovingObject(int x, int y, int width, int height, std::string texture_path);
     void handle_edge();
     void handle_fall();
+    void set_vx(double vx);
+    void set_vy(double vy);
+    void set_ay(double ay);
 };
+
+#endif
