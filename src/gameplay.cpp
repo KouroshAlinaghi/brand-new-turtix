@@ -28,6 +28,8 @@ void Gameplay::handle_event(EventQueue queue, Universe* universe) {
     Display::handle_event(queue, universe);
     for (auto event : queue) {
         if (event.first == EVENT_TYPE::KEY_PRESSED) {
+            if (event.second == sf::Keyboard::Escape)
+                universe->set_current_display(ACTION::PAUSE_MENU);
             switch (event.second) {
                 case sf::Keyboard::Up:
                     level->get_map()->move_player(DIR::UP);
@@ -51,7 +53,10 @@ void Gameplay::handle_event(EventQueue queue, Universe* universe) {
 }
 
 Gameplay::Gameplay() : Display() {
-    level = new Level();
     view.setSize(1080.f, 1920.f);
     view.setCenter(350.f, 300.f);
+}
+
+void Gameplay::set_level(Level* level) {
+    this->level = level;
 }

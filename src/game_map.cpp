@@ -60,8 +60,8 @@ void GameMap::stop_player_horizontally() {
     player->set_vx(0);
 }
 
-GameMap::GameMap() {
-    std::ifstream file("map.txt");
+GameMap::GameMap(std::string filename) {
+    std::ifstream file(filename);
     std::string line;
     Object* turtix;
     int current_y = 0, current_x = 0;

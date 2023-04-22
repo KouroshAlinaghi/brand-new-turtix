@@ -1,7 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-
-#define print(x) std::cout << x << std::endl;
 
 #include "menu_item.hpp"
 
@@ -27,8 +24,6 @@ bool MenuItem::is_selected() {
 ACTION MenuItem::get_action() {
     return action;
 }
-
-void MenuItem::tick() {}
 
 MenuItem::MenuItem(
         std::string text_,

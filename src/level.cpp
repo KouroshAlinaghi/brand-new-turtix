@@ -1,8 +1,8 @@
 #include "level.hpp"
 
-Level::Level() {
+Level::Level(std::string filename) {
     score = 0;
-    game_map = new GameMap();
+    game_map = new GameMap(filename);
 }
 
 void Level::start() {}

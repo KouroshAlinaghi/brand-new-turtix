@@ -64,6 +64,9 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "codecvt": "cpp",
+        "rope": "cpp",
+        "iomanip": "cpp"
     }
 }

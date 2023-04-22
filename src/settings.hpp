@@ -15,6 +15,7 @@ private:
     double constant_x_velocity;
     double initial_y_velocity;
 public:
+    Settings();
     void toggle_music();
     void toggle_sound();
 };

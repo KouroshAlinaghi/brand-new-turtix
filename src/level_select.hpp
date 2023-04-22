@@ -1,17 +1,21 @@
-#ifndef PAUSE_MENU_HPP
-#define PAUSE_MENU_HPP
+#ifndef LEVEL_SELECT_HPP
+#define LEVEL_SELECT_HPP
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 #include "universe.hpp"
+#include "level.hpp"
 #include "display.hpp"
 
-class PauseMenu : public Display {
+class LevelSelect : public Display {
+private:
+    std::vector<Level*> levels;
 public:
-    PauseMenu();
     void render(sf::RenderWindow& window);
     void handle_event(EventQueue queue, Universe* universe);
     void tick();
+    LevelSelect();
 };
 
 #endif

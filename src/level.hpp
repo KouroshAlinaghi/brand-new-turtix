@@ -1,6 +1,8 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP
 
+#include <string>
+
 #include "game_map.hpp"
 
 class Level {
@@ -8,7 +10,7 @@ private:
     GameMap* game_map;
     int score;
 public:
-    Level();
+    Level(std::string filename);
     void start();
     void terminate();
     GameMap* get_map();

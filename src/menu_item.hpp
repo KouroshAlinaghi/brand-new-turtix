@@ -28,7 +28,6 @@ public:
             sf::Font* font_
         );
     void render(sf::RenderWindow& window);
-    void tick();
     void select();
     void unselect();
     bool is_selected();

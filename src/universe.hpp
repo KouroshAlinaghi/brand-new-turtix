@@ -16,6 +16,7 @@
 #include "menu.hpp"
 #include "loading_screen.hpp"
 #include "pause_menu.hpp"
+#include "level_select.hpp"
 
 class Universe {
 private:
@@ -32,6 +33,7 @@ public:
     void set_current_display(ACTION page);
     void close_window();
     Settings* get_settings();
+    void set_current_level(Level* level);
 };
 
 #endif

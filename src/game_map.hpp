@@ -21,7 +21,7 @@ private:
     std::vector<Object*> objects;
     Playable* player;
 public:
-    GameMap();
+    GameMap(std::string filename);
     void notify_collision();
     void notify_fall();
     void notify_edge();

@@ -9,13 +9,13 @@
 
 class Gameplay : public Display {
 private:
-    sf::View view;
     Level* level;
 public:
     void render(sf::RenderWindow& window);
     void handle_event(EventQueue queue, Universe* universe);
     void tick();
     Gameplay();
+    void set_level(Level* level);
 };
 
 #endif

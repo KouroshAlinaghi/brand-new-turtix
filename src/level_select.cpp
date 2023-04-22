@@ -1,24 +1,34 @@
 #include <SFML/Graphics.hpp>
+#include <experimental/filesystem>
 #include <iostream>
 
-#include "pause_menu.hpp"
-#include "display.hpp"
+#include "level_select.hpp"
 
-PauseMenu::PauseMenu() : Display() {
-    items.push_back(new MenuItem("Resume", sf::Vector2f(300, 0), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::GAMEPLAY, &font));
-    items.push_back(new MenuItem("Back To Levels", sf::Vector2f(300, 100), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::LEVEL_SELECT, &font));
-    items.front()->select();
-}
-
-void PauseMenu::render(sf::RenderWindow& window) {
+void LevelSelect::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
     for (auto& item : items)
         item->render(window);
 
     window.display();
+};
+
+void LevelSelect::tick() {}
+
+LevelSelect::LevelSelect() : Display() {
+    items.push_back(new MenuItem("Back", sf::Vector2f(100, 0), sf::Vector2f(400, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::MAIN_MENU, &font));
+    for (auto& p : std::experimental::filesystem::directory_iterator("maps")) 
+        levels.push_back(new Level(p.path().string()));
+
+    std::string name;
+    for (int i = 0; i < levels.size(); i++) {
+        name = "Play Level " + std::to_string(i + 1);
+        items.push_back(new MenuItem(name, sf::Vector2f(100, (i+1)*100), sf::Vector2f(400, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::GAMEPLAY, &font));
+    }
+    
+    items.front()->select();
 }
 
-void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
+void LevelSelect::handle_event(EventQueue queue, Universe* universe) {
     Display::handle_event(queue, universe);
     for (auto event : queue) {
         if (event.first != EVENT_TYPE::KEY_PRESSED) continue;
@@ -26,6 +36,8 @@ void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
             for (int i = 0; i < items.size(); i++) {
                 if (items[i]->is_selected()) {
                     universe->set_current_display(items[i]->get_action());
+                    if (items[i]->get_action() == ACTION::GAMEPLAY)
+                        universe->set_current_level(levels[i-1]);
                 }
             }
         }
@@ -55,5 +67,3 @@ void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
         }
     }
 }
-
-void PauseMenu::tick() {}

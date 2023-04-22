@@ -2,11 +2,9 @@
 #define CREDITS_HPP
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "display.hpp"
 #include "universe.hpp"
-#include "menu_item.hpp"
 
 class Credits : public Display {
 private:

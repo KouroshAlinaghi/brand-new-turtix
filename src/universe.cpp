@@ -9,6 +9,7 @@
 using namespace std;
 
 Universe::Universe() {
+    settings = Settings();
     window.create(sf::VideoMode(1080, 1920), "Turtix!");
     initialize_displays();
     set_current_display(ACTION::MAIN_MENU);
@@ -35,12 +36,18 @@ void Universe::initialize_displays() {
     displays[ACTION::LOADING_SCREEN] = new LoadingScreen();
     displays[ACTION::PAUSE_MENU] = new PauseMenu();
     displays[ACTION::SETTINGS] = new SettingsDisplay();
+    displays[ACTION::LEVEL_SELECT] = new LevelSelect();
 }
 
 void Universe::set_current_display(ACTION page) {
+    window.setView(sf::View(sf::FloatRect(0, 0, 1000, 1000)));
     current_display = displays[page];
 }
 
 Settings* Universe::get_settings() {
     return &settings;
+}
+
+void Universe::set_current_level(Level* level) {
+    ((Gameplay*)displays[ACTION::GAMEPLAY])->set_level(level);
 }

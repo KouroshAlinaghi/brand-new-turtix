@@ -10,7 +10,8 @@ class Universe;
 
 class Display {
 protected:
-    std::vector<MenuItem> items;
+    sf::View view;
+    std::vector<MenuItem*> items;
     sf::Font font;
 public:
     Display();
