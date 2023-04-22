@@ -19,7 +19,17 @@
 #include "turning_block.hpp"
 #include "turtix.hpp"
 
-void GameMap::notify_collision() {}
+void GameMap::notify_collision() {
+    for (int i = 0; i < objects.size(); i++) {
+        for (int j = i + 1; j < objects.size(); j++) {
+            if (objects[i]->get_bounding_box().intersects(objects[j]->get_bounding_box())) {
+                objects[i]->handle_collision(objects[j]);
+                objects[j]->handle_collision(objects[i]);
+            }
+        }
+    }
+}
+
 void GameMap::notify_fall() {}
 void GameMap::notify_edge() {}
 
@@ -34,14 +44,14 @@ std::pair<int, int> GameMap::get_player_position() {
 void GameMap::move_player(DIR dir) {
     switch (dir) {
         case RIGHT:
-            player->set_vx(1);
+            player->set_vx(2);
             break;
         case LEFT:
-            player->set_vx(-1);
+            player->set_vx(-2);
             break;
         case UP:
-            player->set_vy(-1);
-            player->set_ay(1);
+            player->set_vy(-20);
+            player->set_ay(0.6);
             break;
     }
 }
@@ -66,7 +76,7 @@ GameMap::GameMap() {
                     objects.push_back(new Diamond(current_x, current_y));
                     break;
                 case '$':
-                    turtix = new Turtix(current_x + 100, current_y);
+                    turtix = new Turtix(current_x + CHAR_LENGTH_IN_PX, current_y);
                     objects.push_back(new Portal(current_x, current_y));
                     objects.push_back(turtix);
                     break;
@@ -98,9 +108,9 @@ GameMap::GameMap() {
                     objects.push_back(new TurningBlock(current_x, current_y));
                     break;
             }
-            current_x += 100;
+            current_x += CHAR_LENGTH_IN_PX;
         }
-        current_y += 100;
+        current_y += CHAR_LENGTH_IN_PX;
     }
     player = (Playable*)turtix;
 }

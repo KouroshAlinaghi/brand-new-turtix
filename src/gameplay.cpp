@@ -10,7 +10,7 @@ void Gameplay::render(sf::RenderWindow& window) {
     std::pair<int, int> cord = level->get_map()->get_player_position();
     view.setCenter(cord.first, cord.second);
     window.setView(view);
-    window.clear(sf::Color::Black);
+    window.clear(sf::Color::Blue);
     for (auto obj : level->get_map()->get_objects())
         obj->draw(window);
 
@@ -18,6 +18,8 @@ void Gameplay::render(sf::RenderWindow& window) {
 }
 
 void Gameplay::tick() {
+    level->get_map()->notify_collision();
+    
     for (auto obj : level->get_map()->get_objects())
         obj->tick();
 }

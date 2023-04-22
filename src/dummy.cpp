@@ -1,3 +1,3 @@
 #include "dummy.hpp"
 
-Dummy::Dummy(int x, int y) : Enemy(x, y, 100, 100, "dummy.png") {}
+Dummy::Dummy(int x, int y) : Enemy(x, y, CHAR_LENGTH_IN_PX, CHAR_LENGTH_IN_PX, "dummy.png") {}

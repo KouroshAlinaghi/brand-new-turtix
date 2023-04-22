@@ -1,3 +1,3 @@
 #include "star.hpp"
 
-Star::Star(int x, int y) : StableObject(x, y, 100, 100, "star.png") {}
+Star::Star(int x, int y) : StableObject(x, y, CHAR_LENGTH_IN_PX, CHAR_LENGTH_IN_PX, "star.png") {}

@@ -8,9 +8,6 @@ public:
     MovingObject(int x, int y, int width, int height, std::string texture_path);
     void handle_edge();
     void handle_fall();
-    void set_vx(double vx);
-    void set_vy(double vy);
-    void set_ay(double ay);
 };
 
 #endif

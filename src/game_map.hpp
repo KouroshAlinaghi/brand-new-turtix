@@ -4,8 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "object.hpp"
-#include "playable.hpp"
+class Object;
+class Playable;
+
+const int CHAR_LENGTH_IN_PX = 150;
 
 enum DIR {
     UP,
