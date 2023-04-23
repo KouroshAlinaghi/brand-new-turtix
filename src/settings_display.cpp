@@ -45,7 +45,7 @@ void SettingsDisplay::handle_event(EventQueue queue, Universe* universe) {
             }
         }
         if (event.second == sf::Keyboard::Up) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
                     if (i == 0)
@@ -57,10 +57,10 @@ void SettingsDisplay::handle_event(EventQueue queue, Universe* universe) {
             }
         }
         if (event.second == sf::Keyboard::Down) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
-                    if (i == items.size() - 1)
+                    if (i == (int)items.size() - 1)
                         items.front()->select();
                     else
                         items[i + 1]->select();

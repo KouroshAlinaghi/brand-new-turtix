@@ -3,4 +3,5 @@
 class Portal : public StableObject {
 public:
     Portal(int x, int y);
+    ENTITIES what_are_you();
 };

@@ -1,24 +1,19 @@
-APP = turtix
-SRC_DIR = src
-EXE_DIR = bin
-OBJ_DIR = obj
-CFLAGS = --std=c++11 -Wall -Wextra -lsfml-graphics -lsfml-window -lsfml-system
+C_FLAGS=-std=c++11 -Wall -Wextra
+L_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lstdc++fs
+SRCS=$(wildcard src/*.cpp)
+HEADERS=$(wildcard src/*.hpp)
+OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: ${APP}
+all: turtix run
 
-$(APP): objs
-	g++ ${CFLAGS} ${OBJ_DIR}/*.o -o ${EXE_DIR}/$@
+run:
+	bin/turtix
 
-objs: make_dirs
-	g++ -c ${SRS_DIR}/*.cpp -o ${OBJ_DIR}/
+turtix: $(OBJS)
+	g++ $(OBJS) -o bin/turtix $(L_FLAGS) 
 
-run: all
-	${EXE_DIR}/${APP}
-
-make_dirs:
-	mkdir -p ${EXE_DIR}
-	mkdir -p ${OBJ_DIR}
-	mkdir -p ${SRC_DIR}
+%.o: %.cpp $(HEADERS)
+	g++ $(C_FLAGS) -c -o $@ $<
 
 clean:
-	rm -f ${OBJ_DIR}/*.o ${EXE_DIR}/main
+	rm -rf $(OBJS)

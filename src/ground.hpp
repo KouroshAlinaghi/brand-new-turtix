@@ -2,5 +2,6 @@
 
 class Ground : public StableObject {
 public:
-    Ground(int x, int y);
+    Ground(int x, int y, int num_of_blocks);
+    ENTITIES what_are_you();
 };

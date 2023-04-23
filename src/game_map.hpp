@@ -4,17 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "actions.hpp"
+
 class Object;
 class Playable;
 
 const int CHAR_LENGTH_IN_PX = 150;
-
-enum DIR {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
 
 class GameMap {
 private:
@@ -23,7 +18,6 @@ private:
 public:
     GameMap(std::string filename);
     void notify_collision();
-    void notify_fall();
     void notify_edge();
     std::vector<Object*> get_objects();
     std::pair<int, int> get_player_position();

@@ -28,12 +28,13 @@ private:
     EventQueue queue;
 public:
     Universe();
-    void initialize_displays();
+    void initialize_displays(Display* loading_screen);
     void start();
     void set_current_display(ACTION page);
     void close_window();
     Settings* get_settings();
     void set_current_level(Level* level);
+    Display* initialize_loading_screen();
 };
 
 #endif

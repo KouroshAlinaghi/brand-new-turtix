@@ -7,6 +7,7 @@
 #include "display.hpp"
 
 class LoadingScreen : public Display {
+    sf::Text text;
 public:
     LoadingScreen();
     void render(sf::RenderWindow& window);

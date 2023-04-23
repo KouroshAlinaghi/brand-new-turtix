@@ -11,8 +11,14 @@ using namespace std;
 Universe::Universe() {
     settings = Settings();
     window.create(sf::VideoMode(1080, 1920), "Turtix!");
-    initialize_displays();
+    Display* loading_screen = initialize_loading_screen();
+    loading_screen->render(window);
+    initialize_displays(loading_screen);
     set_current_display(ACTION::MAIN_MENU);
+}
+
+Display* Universe::initialize_loading_screen() {
+    return new LoadingScreen();
 }
 
 void Universe::close_window() {
@@ -29,11 +35,11 @@ void Universe::start() {
     }
 }
 
-void Universe::initialize_displays() {
+void Universe::initialize_displays(Display* loading_screen) {
+    displays[ACTION::LOADING_SCREEN] = loading_screen;
     displays[ACTION::CREDITS] = new Credits();
     displays[ACTION::GAMEPLAY] = new Gameplay();
     displays[ACTION::MAIN_MENU] = new Menu();
-    displays[ACTION::LOADING_SCREEN] = new LoadingScreen();
     displays[ACTION::PAUSE_MENU] = new PauseMenu();
     displays[ACTION::SETTINGS] = new SettingsDisplay();
     displays[ACTION::LEVEL_SELECT] = new LevelSelect();

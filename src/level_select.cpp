@@ -20,7 +20,7 @@ LevelSelect::LevelSelect() : Display() {
         levels.push_back(new Level(p.path().string()));
 
     std::string name;
-    for (int i = 0; i < levels.size(); i++) {
+    for (int i = 0; i < (int)levels.size(); i++) {
         name = "Play Level " + std::to_string(i + 1);
         items.push_back(new MenuItem(name, sf::Vector2f(100, (i+1)*100), sf::Vector2f(400, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::GAMEPLAY, &font));
     }
@@ -33,7 +33,7 @@ void LevelSelect::handle_event(EventQueue queue, Universe* universe) {
     for (auto event : queue) {
         if (event.first != EVENT_TYPE::KEY_PRESSED) continue;
         if (event.second == sf::Keyboard::Enter) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     universe->set_current_display(items[i]->get_action());
                     if (items[i]->get_action() == ACTION::GAMEPLAY)
@@ -42,7 +42,7 @@ void LevelSelect::handle_event(EventQueue queue, Universe* universe) {
             }
         }
         if (event.second == sf::Keyboard::Up) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
                     if (i == 0)
@@ -54,10 +54,10 @@ void LevelSelect::handle_event(EventQueue queue, Universe* universe) {
             }
         }
         if (event.second == sf::Keyboard::Down) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
-                    if (i == items.size() - 1)
+                    if (i == (int)items.size() - 1)
                         items.front()->select();
                     else
                         items[i + 1]->select();

@@ -23,14 +23,14 @@ void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
     for (auto event : queue) {
         if (event.first != EVENT_TYPE::KEY_PRESSED) continue;
         if (event.second == sf::Keyboard::Enter) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     universe->set_current_display(items[i]->get_action());
                 }
             }
         }
         if (event.second == sf::Keyboard::Up) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
                     if (i == 0)
@@ -42,10 +42,10 @@ void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
             }
         }
         if (event.second == sf::Keyboard::Down) {
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < (int)items.size(); i++) {
                 if (items[i]->is_selected()) {
                     items[i]->unselect();
-                    if (i == items.size() - 1)
+                    if (i == (int)items.size() - 1)
                         items.front()->select();
                     else
                         items[i + 1]->select();
