@@ -27,7 +27,7 @@ const double INITIAL_VY = -25.4;
 
 class Object {
 protected:
-    int x, y;
+    int x, y, width, height;
     double vx, vy, ay;
     sf::Sprite sprite;
     sf::Texture texture;
@@ -39,8 +39,10 @@ public:
     void draw(sf::RenderWindow& window);
     virtual void tick();
     virtual void handle_collision(DIR dir, Object* obj, int distance);
+    virtual void handle_fall();
     int get_x();
     int get_y();
+    int get_height();
     sf::FloatRect get_bounding_box();
     sf::Vector2f get_position();
     virtual ENTITIES what_are_you() = 0;

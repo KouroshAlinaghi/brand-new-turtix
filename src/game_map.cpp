@@ -4,6 +4,7 @@
 
 #include "object.hpp"
 #include "game_map.hpp"
+#include "actions.hpp"
 
 #include "ground.hpp"
 #include "diamond.hpp"
@@ -34,6 +35,20 @@ void GameMap::notify_collision() {
 }
 
 void GameMap::notify_edge() {}
+
+void GameMap::notify_fall() {
+    sf::FloatRect overlap;
+    int distance;
+    for (int i = 0; i < (int)objects.size(); i++) {
+        if (objects[i]->what_are_you() == ENTITIES::GROUND) continue;
+        for (int j = i + 1; j < (int)objects.size(); j++) {
+            if (objects[i]->what_are_you() != ENTITIES::GROUND) continue;
+            if (objects[i]->get_x() + objects[i]->get_height() == objects[j]->get_x())
+                break;
+        }
+        objects[i]->handle_fall();
+    }
+}
 
 std::vector<Object*> GameMap::get_objects() {
     return objects;

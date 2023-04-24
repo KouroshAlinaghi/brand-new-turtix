@@ -18,6 +18,7 @@ private:
 public:
     GameMap(std::string filename);
     void notify_collision();
+    void notify_fall();
     void notify_edge();
     std::vector<Object*> get_objects();
     std::pair<int, int> get_player_position();

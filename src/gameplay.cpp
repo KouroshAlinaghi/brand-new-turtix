@@ -18,10 +18,11 @@ void Gameplay::render(sf::RenderWindow& window) {
 }
 
 void Gameplay::tick() {
-    level->get_map()->notify_collision();
-    
     for (auto obj : level->get_map()->get_objects())
         obj->tick();
+
+    level->get_map()->notify_collision();
+    level->get_map()->notify_fall();
 }
 
 void Gameplay::handle_event(EventQueue queue, Universe* universe) {

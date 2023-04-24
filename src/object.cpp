@@ -6,7 +6,9 @@
 using namespace std;
 using namespace sf;
 
-Object::Object(int x_, int y_, int width, int height, std::string texture_path) {
+Object::Object(int x_, int y_, int width_, int height_, std::string texture_path) {
+    this->width = width_;
+    this->height = height_;
     this->vx = 0;
     this->vy = 0;
     this->ay = 0;
@@ -44,7 +46,13 @@ sf::FloatRect Object::get_bounding_box() {
     return sprite.getGlobalBounds();
 }
 
+int Object::get_height() {
+    return height;
+}
+
 void Object::handle_collision(DIR dir, Object* obj2, int distance) {}
+
+void Object::handle_fall() {}
 
 void Object::set_vx(double vx_) {
     this->vx = vx_;
