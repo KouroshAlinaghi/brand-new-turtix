@@ -10,7 +10,8 @@ using namespace std;
 
 Universe::Universe() {
     settings = Settings();
-    window.create(sf::VideoMode(1080, 1920), "Turtix!");
+    window.create(sf::VideoMode(1366, 768), "Turtix!", sf::Style::Fullscreen);
+    window.setFramerateLimit(60);
     Display* loading_screen = initialize_loading_screen();
     loading_screen->render(window);
     initialize_displays(loading_screen);

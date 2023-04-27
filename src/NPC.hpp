@@ -5,7 +5,7 @@
 
 class NPC : public MovingObject {
 public:
-    NPC(int x, int y, int width, int height, std::string texture_path);
+    NPC(int x, int y, int width, int height, std::string texture_path, int textures);
 };
 
 #endif

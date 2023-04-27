@@ -3,18 +3,19 @@
 #include "menu_item.hpp"
 
 void MenuItem::render(sf::RenderWindow& window) {
-    window.draw(rect);
     window.draw(text);
 }
 
 void MenuItem::select() {
     selected = true;
-    rect.setFillColor(selected_color);
+    text.setFillColor(SELECTED_COLOR);
+    text.setOutlineColor(UNSELECTED_COLOR);
 }
 
 void MenuItem::unselect() {
     selected = false;
-    rect.setFillColor(unselected_color);
+    text.setFillColor(UNSELECTED_COLOR);
+    text.setOutlineColor(SELECTED_COLOR);
 }
 
 bool MenuItem::is_selected() {
@@ -28,23 +29,16 @@ ACTION MenuItem::get_action() {
 MenuItem::MenuItem(
         std::string text_,
         sf::Vector2f position_,
-        sf::Vector2f size_,
-        sf::Color color_,
-        sf::Color selected_color_,
-        sf::Color unselected_color_,
         ACTION action_,
         sf::Font* font
     ) {
-    selected_color = selected_color_;
-    unselected_color = unselected_color_;
     text.setFont(*font);
-    text.setCharacterSize(20);
-    text.setFillColor(color_);
+    text.setCharacterSize(30);
+    text.setOutlineColor(SELECTED_COLOR);
+    text.setOutlineThickness(1);
+    text.setFillColor(UNSELECTED_COLOR);
     text.setString(text_);
-    text.setPosition(position_ + sf::Vector2f(10, 10));
-    rect.setPosition(position_);
-    rect.setSize(size_);
-    rect.setFillColor(unselected_color);
+    text.setPosition(position_);
     selected = false;
     action = action_;
 }

@@ -13,6 +13,9 @@ protected:
     sf::View view;
     std::vector<MenuItem*> items;
     sf::Font font;
+    sf::Image bg_image;
+    sf::Texture bg_texture;
+    sf::Sprite bg_sprite;
 public:
     Display();
     virtual void render(sf::RenderWindow& window) = 0;

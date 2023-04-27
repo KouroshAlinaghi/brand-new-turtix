@@ -7,23 +7,18 @@
 
 #include "actions.hpp"
 
+const sf::Color SELECTED_COLOR = sf::Color::White;
+const sf::Color UNSELECTED_COLOR = sf::Color::Black;
+
 class MenuItem {
 private:
     sf::Text text;
-    sf::RectangleShape rect;
-    sf::Color color;
-    sf::Color selected_color;
-    sf::Color unselected_color;
     bool selected;
     ACTION action;
 public:
     MenuItem(
             std::string text_,
             sf::Vector2f position_,
-            sf::Vector2f size_,
-            sf::Color color_,
-            sf::Color selected_color_,
-            sf::Color unselected_color_,
             ACTION action,
             sf::Font* font_
         );

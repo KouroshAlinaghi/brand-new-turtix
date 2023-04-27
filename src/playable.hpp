@@ -5,7 +5,7 @@
 
 class Playable : public MovingObject {
 public:
-    Playable(int x, int y, int width, int height, std::string texture_path);
+    Playable(int x, int y, int width, int height, std::string texture_path, int textures);
 };
 
 #endif

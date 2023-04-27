@@ -4,6 +4,7 @@
 
 void Credits::render(sf::RenderWindow& window) {    
     window.clear(sf::Color::Black);
+    Display::render(window);
     for (auto& item : items)
         item->render(window);
 
@@ -35,10 +36,13 @@ void Credits::handle_event(EventQueue queue, Universe* universe) {
 void Credits::tick() {}
 
 Credits::Credits() : Display() {
-    items.push_back(new MenuItem("Back", sf::Vector2f(100, 0), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, MAIN_MENU, &font));
+    items.push_back(new MenuItem("Back", sf::Vector2f(100, 700), ACTION::MAIN_MENU, &font));
     items.front()->select();
     text.setFont(font);
-    text.setCharacterSize(24);
+    text.setCharacterSize(34);
     text.setFillColor(sf::Color::White);
-    text.setString("Creators: Kourosh and Mohammad Hossein");    
+    text.setOutlineColor(sf::Color::Black);
+    text.setOutlineThickness(2);
+    text.setString("Creators: \n\n\n\n\n\n\n\t\tKourosh and Mohammad Hossein"); 
+    text.setPosition(sf::Vector2f(50, 100));   
 }

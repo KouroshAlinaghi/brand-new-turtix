@@ -5,13 +5,14 @@
 #include "display.hpp"
 
 PauseMenu::PauseMenu() : Display() {
-    items.push_back(new MenuItem("Resume", sf::Vector2f(300, 0), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::GAMEPLAY, &font));
-    items.push_back(new MenuItem("Back To Levels", sf::Vector2f(300, 100), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::LEVEL_SELECT, &font));
+    items.push_back(new MenuItem("Resume", sf::Vector2f(100, 100), ACTION::GAMEPLAY, &font));
+    items.push_back(new MenuItem("Back To Levels", sf::Vector2f(100, 200), ACTION::LEVEL_SELECT, &font));
     items.front()->select();
 }
 
 void PauseMenu::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
+    Display::render(window);
     for (auto& item : items)
         item->render(window);
 

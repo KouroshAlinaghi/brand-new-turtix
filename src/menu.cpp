@@ -8,6 +8,7 @@
 
 void Menu::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
+    Display::render(window);
     for (auto& item : items)
         item->render(window);
 
@@ -15,10 +16,10 @@ void Menu::render(sf::RenderWindow& window) {
 };
 
 Menu::Menu() : Display() {
-    items.push_back(new MenuItem("Levels", sf::Vector2f(100, 0), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::LEVEL_SELECT, &font));
-    items.push_back(new MenuItem("Settings", sf::Vector2f(100, 100), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::SETTINGS, &font));
-    items.push_back(new MenuItem("Credits", sf::Vector2f(100, 200), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::CREDITS, &font));
-    items.push_back(new MenuItem("Exit", sf::Vector2f(100, 300), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::MAIN_MENU, &font));
+    items.push_back(new MenuItem("Levels", sf::Vector2f(100, 100), ACTION::LEVEL_SELECT, &font));
+    items.push_back(new MenuItem("Settings", sf::Vector2f(100, 210), ACTION::SETTINGS, &font));
+    items.push_back(new MenuItem("Credits", sf::Vector2f(100, 320), ACTION::CREDITS, &font));
+    items.push_back(new MenuItem("Exit", sf::Vector2f(100, 430), ACTION::MAIN_MENU, &font));
     items.front()->select();
 }
 

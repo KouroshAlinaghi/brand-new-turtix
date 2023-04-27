@@ -1,4 +1,3 @@
-#include <vector>
 #include <fstream>
 #include <iostream>
 
@@ -34,15 +33,27 @@ void GameMap::notify_collision() {
     }
 }
 
-void GameMap::notify_edge() {}
+void GameMap::notify_edge() {
+    for (auto enemy : objects) {
+        if (enemy->what_are_you() != SHIELDED_ENEMY and enemy->what_are_you() != DUMMY_ENEMY) continue;
+        for (auto ground : objects) {
+            if (ground->what_are_you() != GROUND) continue;
+            if (ground->get_y() - enemy->get_y() != enemy->get_height()) continue;
+            if (
+                (enemy->get_x() <= ground->get_x() and enemy->get_x() + enemy->get_width() > ground->get_x())
+                or (enemy->get_x() + enemy->get_width() >= ground->get_x() + ground->get_width() and enemy->get_x() < ground->get_x() + ground->get_width())
+            )
+                enemy->handle_edge();
+        }
+    }
+}
 
 void GameMap::notify_fall() {
     sf::FloatRect overlap;
-    int distance;
     for (int i = 0; i < (int)objects.size(); i++) {
         if (objects[i]->what_are_you() == ENTITIES::GROUND) continue;
         for (int j = i + 1; j < (int)objects.size(); j++) {
-            if (objects[i]->what_are_you() != ENTITIES::GROUND) continue;
+            if (objects[j]->what_are_you() != ENTITIES::GROUND) continue;
             if (objects[i]->get_x() + objects[i]->get_height() == objects[j]->get_x())
                 break;
         }
@@ -50,7 +61,7 @@ void GameMap::notify_fall() {
     }
 }
 
-std::vector<Object*> GameMap::get_objects() {
+std::deque<Object*> GameMap::get_objects() {
     return objects;
 }
 
@@ -61,9 +72,11 @@ std::pair<int, int> GameMap::get_player_position() {
 void GameMap::move_player(DIR dir) {
     switch (dir) {
         case RIGHT:
+            player->set_is_moving_right(true);
             player->set_vx(CONSTANT_VX);
             break;
         case LEFT:
+            player->set_is_moving_right(false);
             player->set_vx(-1*CONSTANT_VX);
             break;
         case UP:
@@ -82,30 +95,34 @@ void GameMap::stop_player_horizontally() {
 GameMap::GameMap(std::string filename) {
     std::ifstream file(filename);
     std::string line;
-    Object* turtix;
+    Object* turtix = nullptr;
     int current_y = 0, current_x = 0, current_grounds = 0;
     while (std::getline(file, line)) {
         current_grounds = 0;
         current_x = 0;
         for (int i = 0; i < (int)line.size(); i++) {
             if (i == (int)line.size() - 1 and line[i] == '.') {
-                current_grounds++;
-                objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX*(current_grounds+1), current_y, current_grounds));
+                objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX*current_grounds, current_y, current_grounds));
             }
             if (line[i] == '.') {
                 current_grounds++;
+                current_x += CHAR_LENGTH_IN_PX;
             } else {
-                if (current_grounds)
-                    objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX*(current_grounds+1), current_y, current_grounds));
+                if (current_grounds) {
+                    objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX*current_grounds, current_y, current_grounds));
+                }
                 current_grounds = 0;
                 switch (line[i]) {
                     case '^':
-                        objects.push_back(new Diamond(current_x, current_y));
+                        objects.push_back(new Diamond(current_x, current_y));\
                         break;
                     case '$':
-                        turtix = new Turtix(current_x + CHAR_LENGTH_IN_PX, current_y);
                         objects.push_back(new Portal(current_x, current_y));
-                        objects.push_back(turtix);
+                        if (turtix == nullptr) {
+                            turtix = new Turtix(current_x+CHAR_LENGTH_IN_PX, current_y);
+                            objects.push_front(turtix);
+                            player = (Playable*)turtix;
+                        }
                         break;
                     case 'E':
                         objects.push_back(new Dummy(current_x, current_y));
@@ -125,20 +142,19 @@ GameMap::GameMap(std::string filename) {
                     case '|':
                         objects.push_back(new Trap(current_x, current_y));
                         break;
-                    case '#':
-                        objects.push_back(new Ladder(current_x, current_y));
-                        break;
-                    case '-':
-                        objects.push_back(new Rope(current_x, current_y));
-                        break;
-                    case 'B':
-                        objects.push_back(new TurningBlock(current_x, current_y));
-                        break;
+                    // case '#':
+                    //     objects.push_back(new Ladder(current_x, current_y));
+                    //     break;
+                    // case '-':
+                    //     objects.push_back(new Rope(current_x, current_y));
+                    //     break;
+                    // case 'B':
+                    //     objects.push_back(new TurningBlock(current_x, current_y));
+                    //     break;
                 }
-            }
             current_x += CHAR_LENGTH_IN_PX;
+            }
         }
         current_y += CHAR_LENGTH_IN_PX;
     }
-    player = (Playable*)turtix;
 }

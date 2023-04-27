@@ -6,11 +6,14 @@
 #include "game_map.hpp"
 #include "display.hpp"
     
+const sf::Color BG_COLOR = sf::Color(140, 220, 252);
+int frame = 0;
+
 void Gameplay::render(sf::RenderWindow& window) {
     std::pair<int, int> cord = level->get_map()->get_player_position();
     view.setCenter(cord.first, cord.second);
     window.setView(view);
-    window.clear(sf::Color::Blue);
+    window.clear(BG_COLOR);
     for (auto obj : level->get_map()->get_objects())
         obj->draw(window);
 
@@ -18,11 +21,14 @@ void Gameplay::render(sf::RenderWindow& window) {
 }
 
 void Gameplay::tick() {
+    frame = (frame + 1) % FRAME_MOD;
+
     for (auto obj : level->get_map()->get_objects())
-        obj->tick();
+        obj->tick();    
 
     level->get_map()->notify_collision();
     level->get_map()->notify_fall();
+    level->get_map()->notify_edge();
 }
 
 void Gameplay::handle_event(EventQueue queue, Universe* universe) {
@@ -54,8 +60,7 @@ void Gameplay::handle_event(EventQueue queue, Universe* universe) {
 }
 
 Gameplay::Gameplay() : Display() {
-    view.setSize(1080.f, 1920.f);
-    view.setCenter(350.f, 300.f);
+    view.setSize(1200, 600);
 }
 
 void Gameplay::set_level(Level* level) {

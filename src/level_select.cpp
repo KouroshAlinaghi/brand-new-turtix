@@ -6,6 +6,7 @@
 
 void LevelSelect::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
+    Display::render(window);
     for (auto& item : items)
         item->render(window);
 
@@ -15,14 +16,14 @@ void LevelSelect::render(sf::RenderWindow& window) {
 void LevelSelect::tick() {}
 
 LevelSelect::LevelSelect() : Display() {
-    items.push_back(new MenuItem("Back", sf::Vector2f(100, 0), sf::Vector2f(400, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::MAIN_MENU, &font));
+    items.push_back(new MenuItem("Back", sf::Vector2f(100, 100), ACTION::MAIN_MENU, &font));
     for (auto& p : std::experimental::filesystem::directory_iterator("maps")) 
         levels.push_back(new Level(p.path().string()));
 
     std::string name;
     for (int i = 0; i < (int)levels.size(); i++) {
         name = "Play Level " + std::to_string(i + 1);
-        items.push_back(new MenuItem(name, sf::Vector2f(100, (i+1)*100), sf::Vector2f(400, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, ACTION::GAMEPLAY, &font));
+        items.push_back(new MenuItem(name, sf::Vector2f(100, (i+2)*100), ACTION::GAMEPLAY, &font));
     }
     
     items.front()->select();

@@ -3,14 +3,13 @@
 
 #include "moving_object.hpp"
 
+const int ENEMY_CONSTANT_VOLACITY = 3;
+
 class Enemy : public MovingObject {
 public:
-    Enemy(int x, int y, int width, int height, std::string texture_path);
-    void move();
-    void attack();
-    void die();
-    void update();
-    void draw();
+    Enemy(int x, int y, int width, int height, std::string texture_path, int textures);
+    void toggle_is_moving_right();
+    void handle_edge();
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <experimental/filesystem>
 #include <iostream>
 
 #include "object.hpp"
@@ -15,16 +16,6 @@ Object::Object(int x_, int y_, int width_, int height_, std::string texture_path
     this->x = x_;
     this->y = y_;
     sprite.setPosition(x_, y_);
-    sprite.setTextureRect(IntRect(0, 0, width, height));
-    if (!texture.loadFromFile("statics/sprites/" + texture_path))
-        return;
-    
-    texture.setRepeated(true);
-    sprite.setTexture(texture);
-}
-
-void Object::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
 }
 
 int Object::get_x() {
@@ -34,6 +25,8 @@ int Object::get_x() {
 int Object::get_y() {
     return y;
 }
+
+void Object::set_is_moving_right(bool is_moving_right_) {}
 
 void Object::tick() {
     x += vx;
@@ -50,9 +43,13 @@ int Object::get_height() {
     return height;
 }
 
-void Object::handle_collision(DIR dir, Object* obj2, int distance) {}
+int Object::get_width() {
+    return width;
+}
 
+void Object::handle_collision(DIR, Object*, int) {}
 void Object::handle_fall() {}
+void Object::handle_edge() {}
 
 void Object::set_vx(double vx_) {
     this->vx = vx_;
@@ -69,3 +66,6 @@ void Object::set_ay(double ay_) {
 sf::Vector2f Object::get_position() {
     return sprite.getPosition();
 }
+
+bool Object::is_taken() { return false; }
+int Object::get_value() { return 0; }

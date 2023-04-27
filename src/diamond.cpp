@@ -1,6 +1,9 @@
 #include "diamond.hpp"
 
-Diamond::Diamond(int x, int y) : StableObject(x, y, CHAR_LENGTH_IN_PX, CHAR_LENGTH_IN_PX, "diamond.png") {}
+Diamond::Diamond(int x, int y) : Reward(x+20, y, 26, 21, "diamond") {
+    this->value = 5;
+    this->taken = false;
+}
 
 ENTITIES Diamond::what_are_you() {
     return DIAMOND;

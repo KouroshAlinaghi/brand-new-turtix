@@ -4,7 +4,7 @@
 #include "loading_screen.hpp"
 
 LoadingScreen::LoadingScreen() : Display() {
-    text = sf::Text("Loading...", font, 100);
+    text = sf::Text("Loading...", font, 50);
     text.setPosition(100, 100);
 }
 

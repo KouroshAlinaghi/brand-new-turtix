@@ -7,6 +7,9 @@
 #include "level.hpp"
 #include "display.hpp"
 
+extern int frame;
+const int FRAME_MOD = 8;
+
 class Gameplay : public Display {
 private:
     Level* level;

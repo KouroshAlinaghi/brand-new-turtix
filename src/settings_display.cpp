@@ -4,17 +4,15 @@
 #include "display.hpp"
 
 SettingsDisplay::SettingsDisplay() : Display() {
-    items.push_back(new MenuItem("Back", sf::Vector2f(100, 0), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, MAIN_MENU, &font));
-    items.push_back(new MenuItem("Fullscreen", sf::Vector2f(100, 100), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, SETTINGS, &font));
-    items.push_back(new MenuItem("Resolution", sf::Vector2f(100, 200), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, SETTINGS, &font));
-    items.push_back(new MenuItem("FPS", sf::Vector2f(100, 300), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, SETTINGS, &font));
-    items.push_back(new MenuItem("Music", sf::Vector2f(100, 400), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, SETTINGS, &font));
-    items.push_back(new MenuItem("Sound", sf::Vector2f(100, 500), sf::Vector2f(100, 100), sf::Color::White, sf::Color::Green, sf::Color::Blue, SETTINGS, &font));
+    items.push_back(new MenuItem("Back", sf::Vector2f(100, 100), MAIN_MENU, &font));
+    items.push_back(new MenuItem("Music", sf::Vector2f(100, 210), SETTINGS, &font));
+    items.push_back(new MenuItem("Sound", sf::Vector2f(100, 320), SETTINGS, &font));
     items.front()->select();
 }
 
 void SettingsDisplay::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
+    Display::render(window);
     for (auto& item : items)
         item->render(window);
 
