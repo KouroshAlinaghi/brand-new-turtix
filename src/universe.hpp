@@ -2,6 +2,7 @@
 #define UNIVERSE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <map>
 
@@ -27,6 +28,8 @@ private:
     Display* current_display;
     Settings settings;
     EventQueue queue;
+    sf::Music theme_music;
+    sf::Music defeat_music;
 public:
     Universe();
     void initialize_displays(Display* loading_screen);
@@ -38,6 +41,7 @@ public:
     Display* initialize_loading_screen();
     void lose(Level* level);
     void win(Level* level);
+    void stop_music();
 };
 
 #endif

@@ -9,6 +9,9 @@
 using namespace std;
 
 Universe::Universe() {
+    theme_music.openFromFile("statics/audio/legendaryTheme.ogg");
+    defeat_music.openFromFile("statics/audio/defeat.ogg");
+    theme_music.setLoop(true);
     settings = Settings();
     window.create(sf::VideoMode(1366, 768), "Turtix!", sf::Style::Fullscreen);
     window.setFramerateLimit(60);
@@ -27,6 +30,8 @@ void Universe::close_window() {
 }
 
 void Universe::start() {
+    if (this->settings.enabled_music())
+        theme_music.play();
     while (window.isOpen()) {
         queue = generate_queue(window);
         current_display->handle_event(queue, this);
@@ -48,14 +53,26 @@ void Universe::initialize_displays(Display* loading_screen) {
 }
 
 void Universe::set_current_display(ACTION page) {
+    if (page == MAIN_MENU && this->settings.enabled_music()) {
+        defeat_music.stop();
+        theme_music.play();
+    }
     window.setView(sf::View(sf::FloatRect(0, 0, 1000, 1000)));
     current_display = displays[page];
 }
 
 void Universe::lose(Level* level) {
+    theme_music.stop();
+    defeat_music.play();
+    defeat_music.setLoop(true);
     level->restart();
     this->displays[ACTION::GAMEOVER]->set_win(false);
     set_current_display(ACTION::GAMEOVER);
+}
+
+void Universe::stop_music() {
+    theme_music.stop();
+    defeat_music.stop();
 }
 
 void Universe::win(Level* level) {

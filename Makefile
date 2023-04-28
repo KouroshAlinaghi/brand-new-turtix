@@ -1,5 +1,5 @@
 C_FLAGS=-std=c++11 -Wall -Wextra
-L_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lstdc++fs
+L_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lstdc++fs
 SRCS=$(wildcard src/*.cpp)
 HEADERS=$(wildcard src/*.hpp)
 OBJS=$(subst .cpp,.o,$(SRCS))

@@ -32,6 +32,7 @@ void SettingsDisplay::handle_event(EventQueue queue, Universe* universe) {
                             break;
                         case ACTION::TOGGLE_MUSIC:
                             universe->get_settings()->toggle_music();
+                            universe->stop_music();
                             break;
                         case ACTION::TOGGLE_SOUND:
                             universe->get_settings()->toggle_sound();
