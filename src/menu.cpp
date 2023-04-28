@@ -69,4 +69,4 @@ void Menu::handle_event(EventQueue queue, Universe* universe) {
     }
 }
 
-void Menu::tick() {}
+void Menu::tick(Universe*) {}

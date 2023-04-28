@@ -13,7 +13,7 @@ class Menu : public Display {
 public:
     void handle_event(EventQueue queue, Universe* universe);
     void render(sf::RenderWindow& window);
-    void tick();
+    void tick(Universe* universe);
     Menu();
 };
 

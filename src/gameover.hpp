@@ -1,18 +1,21 @@
-#ifndef LOADINGSCREEN_HPP
-#define LOADINGSCREEN_HPP
+#ifndef GAMEOVER_HPP
+#define GAMEOVER_HPP
 
 #include <SFML/Graphics.hpp>
 
-#include "universe.hpp"
 #include "display.hpp"
 
-class LoadingScreen : public Display {
+class Gameover : public Display {
+private:
     sf::Text text;
+    bool win;
 public:
-    LoadingScreen();
+    Gameover();
     void render(sf::RenderWindow& window);
     void handle_event(EventQueue queue, Universe* universe);
-    void tick(Universe* universe);
+    void tick(Universe*);
+    bool is_win();
+    void set_win(bool win);
 };
 
 #endif

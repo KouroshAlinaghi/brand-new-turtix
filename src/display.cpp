@@ -23,3 +23,5 @@ void Display::handle_event(EventQueue queue, Universe* universe) {
 void Display::render(sf::RenderWindow& window) {
     window.draw(bg_sprite);
 }
+
+void Display::set_win(bool) {}

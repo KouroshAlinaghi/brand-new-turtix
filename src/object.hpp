@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "game_map.hpp"
+#include "actions.hpp"
 
 enum ENTITIES {
     TURTIX,
@@ -46,8 +46,10 @@ public:
     virtual void handle_collision(DIR dir, Object* obj, int distance);
     virtual void handle_fall();
     virtual void handle_edge();
+    virtual void decrease_lives();
     int get_x();
     int get_y();
+    double get_vx();
     int get_height();
     int get_width();
     sf::FloatRect get_bounding_box();
@@ -60,6 +62,9 @@ public:
     virtual void set_is_moving_right(bool is_moving_right);
     virtual bool is_taken();
     virtual int get_value();
+    bool is_stopper();
+    virtual bool is_saved();
+    virtual bool is_dead();
 };
 
 #endif

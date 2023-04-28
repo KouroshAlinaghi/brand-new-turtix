@@ -8,12 +8,10 @@
 class Level {
 private:
     GameMap* game_map;
-    int score;
 public:
     Level(std::string filename);
-    void start();
-    void terminate();
     GameMap* get_map();
+    void restart();
 };
 
 #endif

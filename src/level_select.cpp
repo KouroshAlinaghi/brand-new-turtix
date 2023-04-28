@@ -13,8 +13,6 @@ void LevelSelect::render(sf::RenderWindow& window) {
     window.display();
 };
 
-void LevelSelect::tick() {}
-
 LevelSelect::LevelSelect() : Display() {
     items.push_back(new MenuItem("Back", sf::Vector2f(100, 100), ACTION::MAIN_MENU, &font));
     for (auto& p : std::experimental::filesystem::directory_iterator("maps")) 
@@ -68,3 +66,5 @@ void LevelSelect::handle_event(EventQueue queue, Universe* universe) {
         }
     }
 }
+
+void LevelSelect::tick(Universe*) {}

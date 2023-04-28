@@ -70,4 +70,4 @@ void SettingsDisplay::handle_event(EventQueue queue, Universe* universe) {
 }
 
 
-void SettingsDisplay::tick() {}
+void SettingsDisplay::tick(Universe*) {}

@@ -9,7 +9,7 @@ LoadingScreen::LoadingScreen() : Display() {
 }
 
 void LoadingScreen::handle_event(EventQueue, Universe*) {}
-void LoadingScreen::tick() {}
+void LoadingScreen::tick(Universe*) {}
 
 void LoadingScreen::render(sf::RenderWindow& window) {
     window.clear();

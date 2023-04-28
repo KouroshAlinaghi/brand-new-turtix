@@ -57,4 +57,4 @@ void PauseMenu::handle_event(EventQueue queue, Universe* universe) {
     }
 }
 
-void PauseMenu::tick() {}
+void PauseMenu::tick(Universe*) {}

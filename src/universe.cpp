@@ -31,7 +31,7 @@ void Universe::start() {
         queue = generate_queue(window);
         current_display->handle_event(queue, this);
         empty_queue(queue);
-        current_display->tick();
+        current_display->tick(this);
         current_display->render(window);
     }
 }
@@ -39,16 +39,29 @@ void Universe::start() {
 void Universe::initialize_displays(Display* loading_screen) {
     displays[ACTION::LOADING_SCREEN] = loading_screen;
     displays[ACTION::CREDITS] = new Credits();
-    displays[ACTION::GAMEPLAY] = new Gameplay();
+    displays[ACTION::GAMEPLAY] = new Gameplay(window);
     displays[ACTION::MAIN_MENU] = new Menu();
     displays[ACTION::PAUSE_MENU] = new PauseMenu();
     displays[ACTION::SETTINGS] = new SettingsDisplay();
     displays[ACTION::LEVEL_SELECT] = new LevelSelect();
+    displays[ACTION::GAMEOVER] = new Gameover();
 }
 
 void Universe::set_current_display(ACTION page) {
     window.setView(sf::View(sf::FloatRect(0, 0, 1000, 1000)));
     current_display = displays[page];
+}
+
+void Universe::lose(Level* level) {
+    level->restart();
+    this->displays[ACTION::GAMEOVER]->set_win(false);
+    set_current_display(ACTION::GAMEOVER);
+}
+
+void Universe::win(Level* level) {
+    level->restart();
+    this->displays[ACTION::GAMEOVER]->set_win(true);
+    set_current_display(ACTION::GAMEOVER);
 }
 
 Settings* Universe::get_settings() {

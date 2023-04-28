@@ -13,7 +13,7 @@ public:
     Credits();
     void render(sf::RenderWindow& window);
     void handle_event(EventQueue queue, Universe* universe);
-    void tick();
+    void tick(Universe* universe);
 };
 
 #endif

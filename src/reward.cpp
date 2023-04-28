@@ -18,3 +18,7 @@ void Reward::handle_collision(DIR, Object* obj, int) {
 bool Reward::is_taken() {
     return taken;
 }
+
+int Reward::get_value() {
+    return value;
+}

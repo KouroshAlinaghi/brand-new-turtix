@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
 
-#include "credits.hpp"
+#include "gameover.hpp"
+#include "universe.hpp"
 
-void Credits::render(sf::RenderWindow& window) {    
+void Gameover::render(sf::RenderWindow& window) {    
     window.clear(sf::Color::Black);
     Display::render(window);
     for (auto& item : items)
@@ -12,7 +13,7 @@ void Credits::render(sf::RenderWindow& window) {
     window.display();
 }
 
-void Credits::handle_event(EventQueue queue, Universe* universe) {
+void Gameover::handle_event(EventQueue queue, Universe* universe) {
     Display::handle_event(queue, universe);
     for (auto event : queue) {
         if (event.first == EVENT_TYPE::KEY_PRESSED) {
@@ -33,16 +34,28 @@ void Credits::handle_event(EventQueue queue, Universe* universe) {
     }
 }
 
-void Credits::tick(Universe*) {}
+void Gameover::tick(Universe*) {}
 
-Credits::Credits() : Display() {
-    items.push_back(new MenuItem("Back", sf::Vector2f(100, 700), ACTION::MAIN_MENU, &font));
-    items.front()->select();
+Gameover::Gameover() : Display() {
+    this->win = true;
     text.setFont(font);
-    text.setCharacterSize(34);
+    text.setCharacterSize(44);
     text.setFillColor(sf::Color::White);
     text.setOutlineColor(sf::Color::Black);
     text.setOutlineThickness(2);
-    text.setString("Creators: \n\n\n\n\n\n\n\t\tKourosh and Mohammad Hossein"); 
-    text.setPosition(sf::Vector2f(50, 100));   
+    text.setPosition(sf::Vector2f(100, 100));
+    items.push_back(new MenuItem("Main Menu", sf::Vector2f(100, 700), ACTION::MAIN_MENU, &font));
+    items.front()->select();
+}
+
+bool Gameover::is_win() {
+    return this->win;
+}
+
+void Gameover::set_win(bool win_) {
+    this->win = win_;
+    if (win)
+        text.setString("You Win!");
+    else
+        text.setString("Game Over!");
 }

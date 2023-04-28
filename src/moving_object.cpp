@@ -54,7 +54,7 @@ void MovingObject::increase_y(int value) {
 }
 
 void MovingObject::handle_collision(DIR dir, Object* obj, int distance) {
-    if (obj->what_are_you() == GROUND)
+    if (obj->is_stopper())
         if (dir == UP) {
             this->set_vy(0);
             this->increase_y(distance);
@@ -63,10 +63,10 @@ void MovingObject::handle_collision(DIR dir, Object* obj, int distance) {
             this->set_vy(0);
             this->increase_y(-1*distance);
         } else if (dir == LEFT) {
-            this->set_vx(0);
+            if (this->what_are_you() == TURTIX) this->set_vx(0);
             this->increase_x(distance);
         } else if (dir == RIGHT) {
-            this->set_vx(0);
+            if (this->what_are_you() == TURTIX) this->set_vx(0);
             this->increase_x(-1*distance);
         }
 }

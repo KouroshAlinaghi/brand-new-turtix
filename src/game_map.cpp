@@ -12,11 +12,6 @@
 #include "shielded.hpp"
 #include "turtlack.hpp"
 #include "star.hpp"
-#include "movable_block.hpp"
-#include "trap.hpp"
-#include "ladder.hpp"
-#include "rope.hpp"
-#include "turning_block.hpp"
 #include "turtix.hpp"
 
 void GameMap::notify_collision() {
@@ -61,12 +56,21 @@ void GameMap::notify_fall() {
     }
 }
 
+int GameMap::get_num_of_childs() {
+    return this->num_of_childs;
+}
+
 std::deque<Object*> GameMap::get_objects() {
     return objects;
 }
 
 std::pair<int, int> GameMap::get_player_position() {
     return std::make_pair(player->get_x(), player->get_y());
+}
+
+void GameMap::restart() {
+    GameMap new_map(filename);
+    *this = new_map;
 }
 
 void GameMap::move_player(DIR dir) {
@@ -80,8 +84,11 @@ void GameMap::move_player(DIR dir) {
             player->set_vx(-1*CONSTANT_VX);
             break;
         case UP:
-            player->set_vy(INITIAL_VY);
-            player->set_ay(GRAVITY);
+            if (player->can_jump()) {
+                player->set_vy(INITIAL_VY);
+                player->set_ay(GRAVITY);
+                player->increase_jump_count();
+            }
             break;
         default:
             break;
@@ -92,14 +99,38 @@ void GameMap::stop_player_horizontally() {
     player->set_vx(0);
 }
 
-GameMap::GameMap(std::string filename) {
+int GameMap::get_player_lives() {
+    return player->get_lives();
+}
+
+int GameMap::get_player_points() {
+    return player->get_points();
+}
+
+bool GameMap::get_player_ghost_mode() {
+    return player->is_ghost_mode();
+}
+
+double GameMap::get_player_ghost_mode_time() {
+    return player->get_ghost_mode_time();
+}
+
+bool GameMap::is_player_dead() {
+    return this->player->is_dead();
+}
+
+GameMap::GameMap(std::string filename_) {
+    this->filename = filename_;
     std::ifstream file(filename);
     std::string line;
     Object* turtix = nullptr;
-    int current_y = 0, current_x = 0, current_grounds = 0;
+    int current_y = (SIDES_GROUNDS-1)*CHAR_LENGTH_IN_PX, current_x = SIDES_GROUNDS*CHAR_LENGTH_IN_PX, current_grounds = 0, num_of_childs = 0;
+    for (int i = 0; i < SIDES_GROUNDS; i++) {
+        objects.push_back(new Ground(0, i*CHAR_LENGTH_IN_PX, SIDES_GROUNDS));
+    }
     while (std::getline(file, line)) {
         current_grounds = 0;
-        current_x = 0;
+        current_x = SIDES_GROUNDS*CHAR_LENGTH_IN_PX;
         for (int i = 0; i < (int)line.size(); i++) {
             if (i == (int)line.size() - 1 and line[i] == '.') {
                 objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX*current_grounds, current_y, current_grounds));
@@ -121,7 +152,7 @@ GameMap::GameMap(std::string filename) {
                         if (turtix == nullptr) {
                             turtix = new Turtix(current_x+CHAR_LENGTH_IN_PX, current_y);
                             objects.push_front(turtix);
-                            player = (Playable*)turtix;
+                            player = (Turtix*)turtix;
                         }
                         break;
                     case 'E':
@@ -132,29 +163,22 @@ GameMap::GameMap(std::string filename) {
                         break;
                     case 'O':
                         objects.push_back(new Turtlack(current_x, current_y));
+                        num_of_childs++;
                         break;
                     case '*':
                         objects.push_back(new Star(current_x, current_y));
                         break;
-                    case 'H':
-                        objects.push_back(new MovableBlock(current_x, current_y));
+                    default:
                         break;
-                    case '|':
-                        objects.push_back(new Trap(current_x, current_y));
-                        break;
-                    // case '#':
-                    //     objects.push_back(new Ladder(current_x, current_y));
-                    //     break;
-                    // case '-':
-                    //     objects.push_back(new Rope(current_x, current_y));
-                    //     break;
-                    // case 'B':
-                    //     objects.push_back(new TurningBlock(current_x, current_y));
-                    //     break;
                 }
             current_x += CHAR_LENGTH_IN_PX;
             }
         }
         current_y += CHAR_LENGTH_IN_PX;
+        objects.push_back(new Ground(0, current_y, SIDES_GROUNDS));
+        objects.push_back(new Ground(current_x-CHAR_LENGTH_IN_PX, current_y, SIDES_GROUNDS));
+    }
+    for (int i = 0; i < SIDES_GROUNDS; i++) {
+        objects.push_back(new Ground(current_x, i*CHAR_LENGTH_IN_PX, SIDES_GROUNDS));
     }
 }

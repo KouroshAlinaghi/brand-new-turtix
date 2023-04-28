@@ -55,6 +55,10 @@ void Object::set_vx(double vx_) {
     this->vx = vx_;
 }
 
+double Object::get_vx() {
+    return this->vx;
+}
+
 void Object::set_vy(double vy_) {
     this->vy = vy_;
 }
@@ -69,3 +73,12 @@ sf::Vector2f Object::get_position() {
 
 bool Object::is_taken() { return false; }
 int Object::get_value() { return 0; }
+void Object::decrease_lives() {}
+
+bool Object::is_stopper() {
+    ENTITIES type = this->what_are_you();
+    return (type != PORTAL and type != DIAMOND and type != STAR and type != TURTLACK);
+}
+
+bool Object::is_saved() { return false; }
+bool Object::is_dead() { return false; }

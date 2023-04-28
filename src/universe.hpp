@@ -17,6 +17,7 @@
 #include "loading_screen.hpp"
 #include "pause_menu.hpp"
 #include "level_select.hpp"
+#include "gameover.hpp"
 
 class Universe {
 private:
@@ -35,6 +36,8 @@ public:
     Settings* get_settings();
     void set_current_level(Level* level);
     Display* initialize_loading_screen();
+    void lose(Level* level);
+    void win(Level* level);
 };
 
 #endif

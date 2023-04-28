@@ -1,19 +1,24 @@
 #include "turtlack.hpp"
 
-Turtlack::Turtlack(int x_, int y_) : NPC(x_, y_, 35, 48, "turtlack", 4) {
+Turtlack::Turtlack(int x_, int y_) :  MovingObject(x_, y_, 35, 48, "turtlack", 4) {
     this->shell_texture.loadFromFile("statics/sprites/turtlack/shield.png");
     this->shell.setTexture(this->shell_texture);
     this->shell.setTextureRect(sf::IntRect(0, 0, 60, 60));
     shell.setPosition(x_ - 13, y_ + 7);
-    this->is_saved = false;
-    this->is_freed = false;
+    this->saved = false;
+    this->freed = false;
 }
 
 ENTITIES Turtlack::what_are_you() {
     return TURTLACK;
 }
 
+bool Turtlack::is_saved() {
+    return this->saved;
+}
+
 void Turtlack::handle_collision(DIR dir, Object* obj, int distance) {
+    if (saved) return;
     switch (obj->what_are_you()) {
         case GROUND:
             if (dir == DOWN) {
@@ -32,19 +37,19 @@ void Turtlack::handle_collision(DIR dir, Object* obj, int distance) {
             break;
         case TURTIX:
             if (dir == UP) {
-                is_freed = true;
+                freed = true;
                 vx = CONSTANT_VX;
             }
             break;
         case PORTAL: {
-            is_saved = true;
+            saved = true;
         }
     }
 }
 
 void Turtlack::draw(sf::RenderWindow& window) {
-    if (is_saved) return;
-    if (!is_freed)
+    if (saved) return;
+    if (!freed)
         window.draw(shell);
     MovingObject::draw(window);
 }
